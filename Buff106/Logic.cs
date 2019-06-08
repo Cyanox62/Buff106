@@ -28,7 +28,7 @@ namespace Buff106
 			while (scp106.GetHealth() <= touchHealth && isRoundStarted && scp106?.TeamRole.Role == Role.SCP_106)
 			{
 				IEnumerable<Player> pList = instance.Server.GetPlayers().Where(x => x.TeamRole.Team != Smod2.API.Team.SCP);
-				if (affectTutorials) pList = pList.Where(x => x.TeamRole.Team != Smod2.API.Team.TUTORIAL);
+				if (!affectTutorials) pList = pList.Where(x => x.TeamRole.Team != Smod2.API.Team.TUTORIAL);
 				foreach (Player player in pList.Where(x => Vector.Distance(scp106.GetPosition(), x.GetPosition()) <= touchRange))
 				{
 					SendToPD(player);

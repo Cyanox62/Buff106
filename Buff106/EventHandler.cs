@@ -39,6 +39,10 @@ namespace Buff106
 				scpMaxHealth = ev.Player.GetHealth();
 				scpList.Add(ev.Player.PlayerId, false);
 			}
+			else if (scpList.ContainsKey(ev.Player.PlayerId))
+			{
+				scpList.Remove(ev.Player.PlayerId);
+			}
 		}
 
 		public void OnPlayerHurt(PlayerHurtEvent ev)

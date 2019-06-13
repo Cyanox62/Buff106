@@ -34,7 +34,7 @@ namespace Buff106
 
 		public void OnSetRole(PlayerSetRoleEvent ev)
 		{
-			if (ev.Player.TeamRole.Role == Role.SCP_106)
+			if (ev.Player.TeamRole.Role == Role.SCP_106 && !scpList.ContainsKey(ev.Player.PlayerId))
 			{
 				scpMaxHealth = ev.Player.GetHealth();
 				scpList.Add(ev.Player.PlayerId, false);
@@ -47,7 +47,8 @@ namespace Buff106
 
 		public void OnPlayerHurt(PlayerHurtEvent ev)
 		{
-			if (ev.Player.TeamRole.Role == Role.SCP_106 && ev.Player.GetHealth() <= touchHealth && isRoundStarted && scpList.ContainsKey(ev.Player.PlayerId) && !scpList[ev.Player.PlayerId])
+			int hp = ev.Player.GetHealth();
+			if (ev.Player.TeamRole.Role == Role.SCP_106 && hp > 0 && hp <= touchHealth && isRoundStarted && scpList.ContainsKey(ev.Player.PlayerId) && !scpList[ev.Player.PlayerId])
 			{
 				scpList[ev.Player.PlayerId] = true;
 				Timing.RunCoroutine(CheckPlayerTouch(ev.Player));

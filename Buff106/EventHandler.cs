@@ -36,7 +36,7 @@ namespace Buff106
 		{
 			if (ev.Player.TeamRole.Role == Role.SCP_106 && !scpList.ContainsKey(ev.Player.PlayerId))
 			{
-				scpMaxHealth = ev.Player.GetHealth();
+				scpMaxHealth = ev.Player.TeamRole.MaxHP;
 				scpList.Add(ev.Player.PlayerId, false);
 			}
 			else if (scpList.ContainsKey(ev.Player.PlayerId))

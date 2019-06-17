@@ -10,7 +10,7 @@ namespace Buff106
 	partial class EventHandler : IEventHandlerSetRole, IEventHandlerPlayerHurt, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerPocketDimensionDie
 	{
 		private Plugin instance;
-		private float scpMaxHealth;
+		private int scpMaxHealth;
 		private bool isRoundStarted;
 		private Dictionary<int, bool> scpList = new Dictionary<int, bool>();
 
@@ -59,7 +59,14 @@ namespace Buff106
 		{
 			foreach (Player player in instance.Server.GetPlayers().Where(x => x.TeamRole.Role == Role.SCP_106))
 			{
-				player.AddHealth(pdDieHealth);
+				if (player.GetHealth() + pdDieHealth > scpMaxHealth)
+				{
+					player.SetHealth(scpMaxHealth);
+				}
+				else
+				{
+					player.AddHealth(pdDieHealth);
+				}
 			}
 		}
 	}

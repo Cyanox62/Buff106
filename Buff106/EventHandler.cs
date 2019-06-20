@@ -57,7 +57,9 @@ namespace Buff106
 
 		public void OnPocketDimensionDie(PlayerPocketDimensionDieEvent ev)
 		{
-			foreach (Player player in instance.Server.GetPlayers().Where(x => x.TeamRole.Role == Role.SCP_106))
+			IEnumerable<Player> pList = instance.Server.GetPlayers().Where(x => x.TeamRole.Role == Role.SCP_106);
+			if (affectTutorials) pList = pList.Where(x => x.TeamRole.Team != Smod2.API.Team.TUTORIAL);
+			foreach (Player player in pList)
 			{
 				if (player.GetHealth() + pdDieHealth > scpMaxHealth)
 				{
